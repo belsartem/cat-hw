@@ -15,7 +15,11 @@ Output: [[“acs”, “qwe”],[”Fs”, ”esg”],[””, ”f”,],[”cre
 Create tests
 */
 
+import org.junit.Test;
+
 import java.util.Arrays;
+
+import static org.junit.Assert.assertTrue;
 
 public class catHw {
     public static void main(String[] args) {
@@ -28,6 +32,8 @@ public class catHw {
         System.out.println("Sub arrays by size " + size + ": " + Arrays.deepToString(subArrays));
 
     }
+
+    // Splitting method
 
     public static String[][] splitArrayByNumber(String[] array, int size) {
 
@@ -44,5 +50,51 @@ public class catHw {
             result[i] = sub;
         }
         return result;
+    }
+
+    // JUnit tests
+
+    @Test
+    public void testSplitArray_NotDivisible() {
+        String[] array = {"a", "b", "c", "d", "e"};
+        int size = 2;
+        String[][] expected = { {"a", "b"}, {"c", "d"}, {"e"} };
+        String[][] actual = splitArrayByNumber(array, size);
+        assertTrue("Expected " + Arrays.deepToString(expected) +
+                        " but got " + Arrays.deepToString(actual),
+                Arrays.deepEquals(expected, actual));
+    }
+
+    @Test
+    public void testSplitArray_Divisible() {
+        String[] array = {"a", "b", "c", "d"};
+        int size = 2;
+        String[][] expected = { {"a", "b"}, {"c", "d"} };
+        String[][] actual = splitArrayByNumber(array, size);
+        assertTrue("Expected " + Arrays.deepToString(expected) +
+                        " but got " + Arrays.deepToString(actual),
+                Arrays.deepEquals(expected, actual));
+    }
+
+    @Test
+    public void testSplitArray_SizeGreaterThanArrayLength() {
+        String[] array = {"a", "b", "c"};
+        int size = 5;
+        String[][] expected = { {"a", "b", "c"} };
+        String[][] actual = splitArrayByNumber(array, size);
+        assertTrue("Expected " + Arrays.deepToString(expected) +
+                        " but got " + Arrays.deepToString(actual),
+                Arrays.deepEquals(expected, actual));
+    }
+
+    @Test
+    public void testSplitArray_EmptyArray() {
+        String[] array = {};
+        int size = 2;
+        String[][] expected = {};
+        String[][] actual = splitArrayByNumber(array, size);
+        assertTrue("Expected " + Arrays.deepToString(expected) +
+                        " but got " + Arrays.deepToString(actual),
+                Arrays.deepEquals(expected, actual));
     }
 }
